@@ -1,0 +1,62 @@
+<hash-container>
+    <h3>Hash Table demonstration</h3>
+    <div class="hash-container">
+        <div class="control-panel">
+            <input onkeyup={fieldEdit} value={ state.newItemValue } />
+            <button onclick={ addValue }>Add</button>
+        </div>
+
+        <hash-row each={ (row,index) in state.hashArray }  index={index} rowContent={row} arrayContent={JSON.stringify(row)}>
+        </hash-row>
+    </div>
+
+    <script>
+        import HashRow from "../hash-row/hash-row.riot";
+
+        export default function HashContainer() {
+            
+            function getHashValue(newKey, arrayLength) {
+                // super simple -> get the length
+                return (newKey.length % arrayLength)
+            }
+
+            return {
+                components: {
+                    HashRow,
+                },
+                state: {
+                    hashArray: [],
+                    hashLength: 10,
+                    newItemValue: '',
+                },
+                onBeforeMount(props, state ) {
+                    this.state.hashLength = props.hashLength || 10;                
+                    this.state.hashArray = [];
+                    for (let i=0; i<this.state.hashLength; i++) {
+                        this.state.hashArray.push([]);
+                    }
+                },
+                fieldEdit(e) {
+                    this.update( { newItemValue: e.target.value  })
+                },
+                addValue(e) {
+                    // getting the hash of newItemValue;
+                    const newHashValue = getHashValue(this.state.newItemValue, this.state.hashLength);
+                    console.log(`New item value: ${this.state.newItemValue}, new hash: ${newHashValue}`);
+                    const newItem = { key: this.state.newItemValue, value: Math.floor(Math.random()*200) };
+                    const newHashAtIndex = [ ...this.state.hashArray[newHashValue], newItem ];
+                    const newHashTable = [
+                        ...this.state.hashArray.slice(0, newHashValue), 
+                        newHashAtIndex, 
+                        ...this.state.hashArray.slice(newHashValue+1, this.state.hashArray.length)
+                        ];
+                    console.log('NewHashAtIndex', newHashAtIndex);
+                    console.log('NewHashtable', newHashTable);
+                    this.update( { hashArray: newHashTable  } );
+                }
+            }
+        }
+
+    </script>
+
+</hash-container>

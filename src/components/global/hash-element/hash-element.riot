@@ -1,0 +1,31 @@
+<hash-element>
+    <div class="key"> { state.elementKey } </div>
+    <div class="value"> { state.elementValue} </div>
+
+    <style>
+        :host {
+            text-align: center;
+            border: 1px solid blue;
+            border-radius: 10px;
+            background-color: lightgrey;
+            min-width: 4em;
+            box-sizing: margin-box;
+            display: block;
+            margin-right: 1em;
+        }
+    </style>
+
+    <script>
+        export default {
+            state: {
+                elementKey: '',
+                elementValue: '',
+            },
+            onBeforeMount(props, state) {
+                this.state.elementKey = props.elementKey || "Zorglub";
+                this.state.elementValue = props.elementValue || Math.random();
+            }
+        }
+    </script>
+
+</hash-element>
