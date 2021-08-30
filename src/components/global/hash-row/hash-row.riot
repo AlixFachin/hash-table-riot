@@ -8,24 +8,31 @@
     <style>
         :host {
             display:flex;
-            flex-direction: row;
+            flex-flow: row wrap;
             align-items: center;
             justify-content: flex-start;
             border: 1px solid grey;
             border-radius: min(10%, 10px);
-            padding: 10px 0px;
+            padding: 10px 5px;
             margin-bottom: 3px;
+            margin-top: 1em;
         }
 
         .hash-row-index {
             text-align: center;
             min-width: 4em;
-            background-color: yellow;
+            background-color: #FEBE64;
             border: 1px solid grey;
             border-radius: 5px;
             margin-left: 1em;
             margin-right: 1em;
         }
+
+        :host > div {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
 
     </style>
 

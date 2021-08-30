@@ -12,6 +12,8 @@
             box-sizing: margin-box;
             display: block;
             margin-right: 1em;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
         }
     </style>
 
@@ -22,8 +24,8 @@
                 elementValue: '',
             },
             onBeforeMount(props, state) {
-                this.state.elementKey = props.elementKey || "Zorglub";
-                this.state.elementValue = props.elementValue || Math.random();
+                this.state.elementKey = DOMPurify.sanitize(props.elementKey);
+                this.state.elementValue = DOMPurify.sanitize(props.elementValue);
             }
         }
     </script>

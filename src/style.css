@@ -1,6 +1,17 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  min-width: 100vw;
+}
+
+.container > * {
+  width: 100%;
+}
+
+body {
+  background-image: url("./cool-background-2.png");
+  background-size: auto 100%;
 }
