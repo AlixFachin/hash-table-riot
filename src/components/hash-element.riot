@@ -23,10 +23,12 @@
                 elementKey: '',
                 elementValue: '',
             },
+			/* eslint-disable no-undef */
             onBeforeMount(props, state) {
                 this.state.elementKey = DOMPurify.sanitize(props.elementKey);
                 this.state.elementValue = DOMPurify.sanitize(props.elementValue);
-            }
+            },
+			/* eslint-enable no-undef */
         }
     </script>
 

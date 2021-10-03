@@ -37,7 +37,7 @@
     </style>
 
     <script>
-    import HashElement from "../hash-element/hash-element.riot";
+    import HashElement from "./hash-element.riot";
 
     const testList =  { "a" : 13, "b" : 26, "c" : 46 };
 
@@ -61,8 +61,8 @@
                 }
             },
             addElement(key, value) {
-                this.update({ elements: this.state.elements.push({ key: key, value: value })  });   
-            }
+                this.update({ elements: this.state.elements.push({ key: key, value: value })  });
+            },
         }
     }
 

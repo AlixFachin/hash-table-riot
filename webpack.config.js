@@ -41,7 +41,7 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    open: true,
+    open: false,
     historyApiFallback: {
       index: 'index.html'
     }
@@ -56,7 +56,7 @@ module.exports = {
           options: {
             hot: true
           }
-        }]
+        }, "eslint-loader"]
       },
       {
         test: /\.css$/i,

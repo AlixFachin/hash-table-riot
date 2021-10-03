@@ -1,0 +1,23 @@
+{
+	"plugins": ["riot"],
+	"parserOptions": {
+		"sourceType" : "module",
+		"ecmaVersion" : 2015
+	},
+	"rules": {
+		"no-unused-vars": "warn",
+		"no-undef":"error",
+		"block-spacing": "error",
+		"comma-dangle": ["error", "always-multiline"],
+		"no-multiple-empty-lines": "error",
+		"no-trailing-spaces": "error",
+		"space-infix-ops": "error",
+		"arrow-parens": ["error", "as-needed"],
+		"no-const-assign": "error"
+		
+
+	},
+	"env": {
+		"browser": true
+	}
+}

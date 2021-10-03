@@ -1,7 +1,8 @@
 <hash-container>
     <div class="hash-container-panel">
         <div class="control-panel">
-            <p class="help"> The aim is to store (key, value) pairs. <br>The value will be determined by random. You can choose the hash function to try to optimize the result.
+            <p class="help"> The aim is to store (key, value) pairs. 
+			<br>The value will be determined by random. You can choose the hash function to try to optimize the result.
             (Optimized result is when it takes the least amount of time to look for a value associated with a key, i.e. 
             when the values are uniformally distributed accross the table) <br>
             HashTableの目標は(Key,Value)のペアーを効果的に保存すること。<br>
@@ -62,17 +63,11 @@
                 grid-template-columns: 2fr 1fr;
 
             }
-
-            
-
         }
-
-
         p.help {
             font-size: small;
             grid-area: help;
         }
-        
         #keyInputLbl {
             grid-area: label1;
             text-align:right;
@@ -108,9 +103,9 @@
     </style>
 
     <script>
-        import HashRow from "../hash-row/hash-row.riot";
+        import HashRow from "./hash-row.riot";
 
-        export default function HashContainer() { 
+        export default function HashContainer() {
 
             return {
                 components: {
@@ -134,9 +129,9 @@
                     }
                 },
                 onBeforeMount(props, state ) {
-                    this.state.hashLength = props.hashLength || 10;                
+                    this.state.hashLength = props.hashLength || 10;
                     this.state.hashArray = [];
-                    for (let i=0; i<this.state.hashLength; i++) {
+                    for (let i = 0; i < this.state.hashLength; i++) {
                         this.state.hashArray.push([]);
                     }
                 },
@@ -150,20 +145,23 @@
                     }
                 },
                 addValue() {
+                    console.log("Trying to be there???")
                     // getting the hash of newItemValue;
                     const newHashValue = this.getHashValue(this.state.newItemValue, this.state.hashLength);
                     // inserting the item at the proper column
-                    const newItem = { 
-                        key: DOMPurify.sanitize(this.state.newItemValue), 
-                        value: Math.floor(Math.random()*200) 
+					/* eslint-disable no-undef */
+                    const newItem = {
+                        key: DOMPurify.sanitize(this.state.newItemValue),
+                        value: Math.floor(Math.random() * 200),
                     };
+					/* eslint-enable no-undef */
                     this.state.hashArray[newHashValue].push(newItem);
                     this.update( { hashArray: this.state.hashArray  } );
                 },
-                tableReset(e) {
+                tableReset() {
                     console.log('RESET!')
                     this.state.hashArray = [];
-                    for (let i=0; i<this.state.hashLength; i++) {
+                    for (let i = 0; i < this.state.hashLength; i++) {
                         this.state.hashArray.push([]);
                     }
                     this.update( { hashArray: this.state.hashArray  } );
