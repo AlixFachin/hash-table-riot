@@ -1,10 +1,14 @@
 import './style.css'
 import '@riotjs/hot-reload'
-import { mount } from 'riot'
-import registerGlobalComponents from './register-global-components'
 
-// register
-registerGlobalComponents()
+import { component, register } from 'riot'
 
-// mount all the global components found in this page
-mount('[data-riot-component]')
+// Link towards all the components, for registration
+import HashContainer from "./components/hash-container.riot"
+import HashElement from "./components/hash-element.riot"
+import HashRow from "./components/hash-row.riot"
+
+register('hash-element', HashElement);
+register('hash-row', HashRow);
+
+component(HashContainer)(document.getElementById('approot'));
