@@ -18,11 +18,19 @@
             <label id="hashInputLbl">Hash Function </label>
             <div id="radioGroupHash">
                 <label>String Length</label>
-                <input type="radio" name="hashFunction" id="hashLength" value="length" checked>
+                <input type="radio" name="hashFunction" 
+					id="hashLength" value="length" checked>
                 <label>Char Code sum</label>
-                <input type="radio" name="hashFunction" id="hashSumCode" value="sumcode">
+                <input type="radio" name="hashFunction" 
+					id="hashSumCode" value="sumcode">
             </div>
             <button id="resetBtn" onclick={tableReset}>Reset Table</button>
+			<div id="retrieval-container">
+				<h3>Analytics of value retrieval</h3>
+				<input id="keyRetrieval" onchange={retrieveValueChange}>
+				<button id="retrieveBtn" onclick={retrieveValueDisplayLabel}>Get</button>
+				<label>{state.retrievalResult}</label>
+			</div>
         </div>
 
         <hash-row each={ (row,index) in state.hashArray }  index={index} rowContent={row}>
@@ -46,7 +54,8 @@
             "help help help"
             "label1 field1 button1"
             "label2 radiofield radiofield"
-            ". resetBtn .";
+            ". resetBtn ."
+			"retrieve-field retrieve-field retrieve-field";
             grid-template-columns: 1fr 2fr 1fr;
             gap: 1em 5px;
         }
@@ -59,7 +68,8 @@
                 "field1 button1"
                 "label2 ."
                 "radiofield radiofield"
-                "resetBtn resetBtn";
+                "resetBtn resetBtn"
+				"retrieve-field retrieve-field";
                 grid-template-columns: 2fr 1fr;
 
             }
@@ -100,6 +110,33 @@
             grid-area: resetBtn;
         }
 
+		#retrieval-container {
+			border: 1px solid grey;
+			border-radius: 5px;
+			padding: 1em 5px;
+			grid-area: retrieve-field;
+			display: grid;
+			grid-template-areas:
+			"title title"
+			"input button"
+			"explanation explanation";
+			grid-template-columns: 2fr 1fr;
+			gap: 1em 5px;
+		}
+
+		#retrieval-container > h3 {
+			grid-area: title;
+		}
+		#retrieval-container > input {
+			grid-area: input;
+		}
+		#retrieval-container > button {
+			grid-area: button;
+		}
+		#retrieval-container > label {
+			grid-area: explanation;
+		}
+
     </style>
 
     <script>
@@ -115,6 +152,8 @@
                     hashArray: [],
                     hashLength: 10,
                     newItemValue: '',
+					retrieveKey: '',
+					retrieveLabel: '',
                 },
                 getHashValue(newKey, arrayLength) {
                     if (this.$('#hashLength').checked) {
@@ -144,8 +183,11 @@
                         this.update( { newItemValue: e.target.value  })
                     }
                 },
+				retrieveValueChange(e) {
+					this.state.retrieveKey = e.target.value;
+					console.log('New value changed! ' + this.state.retrieveKey);
+				},
                 addValue() {
-                    console.log("Trying to be there???")
                     // getting the hash of newItemValue;
                     const newHashValue = this.getHashValue(this.state.newItemValue, this.state.hashLength);
                     // inserting the item at the proper column
@@ -158,6 +200,21 @@
                     this.state.hashArray[newHashValue].push(newItem);
                     this.update( { hashArray: this.state.hashArray  } );
                 },
+				getValue(key) {
+					const searchHashValue = this.getHashValue(key, this.state.hashLength);
+					for (let x of this.state.hashArray[searchHashValue]) {
+						if (x.key === key) {
+							return x.value;
+						}
+					}
+					// we return undefined by default
+				},
+			 	retrieveValueDisplayLabel() {
+					const x = this.getValue(this.state.retrieveKey);
+					this.state.retrievalResult = `The retrieved value is: ${x}`;
+					console.log('Retrieved value ' + this.state.retrievalResult);
+					this.update();
+				},
                 tableReset() {
                     console.log('RESET!')
                     this.state.hashArray = [];
